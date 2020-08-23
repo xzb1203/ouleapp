@@ -1,9 +1,14 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <Home></Home>
 </template>
-
+<script>
+import Home from './views/Home'
+export default {
+  components: {
+    Home
+  }
+}
+</script>
 <style lang="less">
 * {
   margin: 0;
@@ -12,14 +17,15 @@
 body,
 html {
   height: 100%;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   ul li {
     list-style: none;
   }
-  em,i{
+  em,
+  i {
     font-style: normal;
   }
-  #app{
+  #app {
     height: 100%;
   }
 }

@@ -6,7 +6,15 @@
       <div>
         <p style="font-size:14px">{{seller.name}}</p>
         <p class="star">
-          <van-rate v-model="seller.score" readonly allow-half :size="15" color="#FF9A02" void-icon="star" void-color="#eee" />
+          <van-rate
+            v-model="seller.score"
+            readonly
+            allow-half
+            :size="15"
+            color="#FF9A02"
+            void-icon="star"
+            void-color="#eee"
+          />
           <span>
             (661)
             <em>月售{{seller.sellCount}}单</em>
@@ -42,6 +50,13 @@
       <p>{{seller.bulletin}}</p>
       <van-divider />
     </div>
+    <!-- 活动详情 -->
+    <ul class="detail">
+      <li v-for="(items,index) in seller.supports" :key="index">
+        <van-tag plain type="danger">{{items.includes('减') ?'减' :items.includes('特') ?'特' :'折'}}</van-tag>
+        <span>{{items}}</span>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -61,11 +76,21 @@ export default {
   },
 };
 </script>
-
 <style lang="less" scoped>
 #main {
   font-size: 12px;
 }
+.detail {
+  padding: 0 10px;
+  background-color: #ffffff;
+  li {
+    margin: 10px 0;
+    .van-tag {
+      margin-right: 5px;
+    }
+  }
+}
+
 .mounth-order {
   display: flex;
   align-items: center;

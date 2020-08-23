@@ -38,7 +38,10 @@
               <!-- 活动内容 -->
               <ul class="activity">
                 <li v-for="(items,index) in seller.supports" :key="index">
-                  <van-tag plain type="danger">{{items.includes('减') ?'减' :items.includes('特') ?'特' :'折'}}</van-tag>
+                  <van-tag
+                    plain
+                    type="danger"
+                  >{{items.includes('减') ?'减' :items.includes('特') ?'特' :'折'}}</van-tag>
                   <span>{{items}}</span>
                 </li>
               </ul>
@@ -59,9 +62,10 @@
     </header>
     <!-- 导航栏 -->
     <nav>
-      <router-link to="/main/index">商品</router-link>
-      <router-link to="/main/evaluate">评价</router-link>
-      <router-link to="/main/merchant">商家</router-link>
+      <router-link to="/">商品</router-link>
+      <router-link to="/evaluate">评价</router-link>
+      <router-link to="/merchant">商家</router-link>
+      <router-link to="/shopdetail">详情</router-link>
     </nav>
     <!-- 主体 -->
     <main>
@@ -71,11 +75,13 @@
     <footer>
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
-        <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" />
-        <van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" />
-        <van-goods-action-button type="danger" text="立即购买" @click="onClickButton" />
+        <van-goods-action-icon icon="cart-o" badge="5" text="购物车" @click="showPopup" />
+        <van-goods-action-button type="danger" text="去结算" @click="onClickButton" />
       </van-goods-action>
     </footer>
+    <!-- 弹出层star -->
+    <van-popup v-model="bottomShow" round position="bottom" :style="{ height: '50%' }">内容</van-popup>
+    <!-- 弹出层end -->
   </div>
 </template>
 <script>
@@ -91,6 +97,7 @@ export default {
       num: 0,
       value: 5,
       show: false,
+      bottomShow: false,
     };
   },
   created() {
@@ -98,7 +105,6 @@ export default {
     seller().then((res) => {
       this.seller = res.data.data;
       this.num = this.seller.supports.length;
-      console.log(this.seller);
     });
   },
   mounted() {
@@ -111,6 +117,10 @@ export default {
     },
     onClickButton() {
       Toast("点击按钮");
+    },
+    //弹出层
+    showPopup() {
+      this.bottomShow = true;
     },
   },
 };
@@ -202,11 +212,9 @@ export default {
       line-height: 20px;
     }
   }
-
-  .block {
-    width: 120px;
-    height: 120px;
-    background-color: #fff;
-  }
 }
+// 新的
+
+
+
 </style>

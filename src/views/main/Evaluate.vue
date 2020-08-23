@@ -160,8 +160,6 @@ export default {
   .gradeMsg {
     width: 100%;
     display: flex;
-    // flex: 1;
-    height: 500px;
     overflow: scroll;
     flex-direction: column;
     li {
