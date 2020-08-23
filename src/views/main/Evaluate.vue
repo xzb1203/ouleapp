@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <!-- <h1>评价</h1> -->
+    <div>
+          <!-- <h1>评价</h1> -->
     <!-- 评分 -->
     <div class="grade">
       <!-- 左侧 -->
@@ -14,11 +15,13 @@
         <ul>
           <li>
             服务态度
-            <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" /><span>4.5</span>
+            <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" />
+            <span>4.5</span>
           </li>
           <li>
             菜品质量
-            <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" /><span>4.5</span>
+            <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" />
+            <span>4.5</span>
           </li>
           <li class="rateTime">
             送达时间
@@ -31,8 +34,8 @@
     <div class="content">
       <van-tabs v-model="activeName" type="card">
         <van-tab title="全部" name="a">
-          <ul class="gradeMsg">
-            <li v-for="(items,index) in usermsg" :key="index">
+          <div class="gradeMsg">
+            <div v-for="(items,index) in usermsg" :key="index" class="listMsg">
               <!-- 头像 -->
               <label>
                 <img :src="items.avatar" />
@@ -65,12 +68,14 @@
                   </div>
                 </div>
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </van-tab>
         <van-tab title="满意18" name="b">内容 2</van-tab>
         <van-tab title="不满意6" name="c">内容 3</van-tab>
       </van-tabs>
+    </div>
+
     </div>
   </div>
 </template>
@@ -78,7 +83,8 @@
 <script>
 //评价接口
 import { ratings } from "@/api/apis.js";
-import {timeFormat} from "@/utils/utils.js"
+import { timeFormat } from "@/utils/utils.js";
+import BScroll from "better-scroll";
 export default {
   data() {
     return {
@@ -86,15 +92,19 @@ export default {
       activeName: "a",
       usermsg: [],
       //时间
-      rateTime:[],
-      timeFormat:'',
+      rateTime: [],
+      timeFormat: "",
     };
   },
   created() {
     ratings().then((res) => {
       this.usermsg = res.data.data;
     });
-    this.timeFormat=timeFormat
+    this.timeFormat = timeFormat;
+  },
+  mounted() {
+    let gradeMsgScroll = new BScroll(document.querySelector(".main"));
+    gradeMsgScroll;
   },
 };
 </script>
@@ -132,16 +142,15 @@ export default {
     li {
       display: flex;
       align-items: center;
-      span{
-        color: #FF9A02;
+      span {
+        color: #ff9a02;
       }
-      .van-rate{
+      .van-rate {
         margin: 2px 5px;
       }
-
     }
-    .deliveryTime{
-      color: #C8C9CC;
+    .deliveryTime {
+      color: #c8c9cc;
       margin-left: 5px;
     }
   }
@@ -162,7 +171,7 @@ export default {
     display: flex;
     overflow: scroll;
     flex-direction: column;
-    li {
+    .listMsg {
       display: flex;
       border-bottom: 1px solid #f4f4f4;
       padding: 15px 5px;

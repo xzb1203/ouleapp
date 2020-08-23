@@ -72,7 +72,7 @@
       <router-view></router-view>
     </main>
     <!-- 底部 -->
-    <footer>
+    <footer style="z-index:9999">
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
         <van-goods-action-icon icon="cart-o" badge="5" text="购物车" @click="showPopup" />
@@ -80,7 +80,28 @@
       </van-goods-action>
     </footer>
     <!-- 弹出层star -->
-    <van-popup v-model="bottomShow" round position="bottom" :style="{ height: '50%' }">内容</van-popup>
+    <van-action-sheet v-model="bottomShow" title="新用户下单立减5元" z-index="1;" id="popup">
+      <div class="content" z-index="2;">
+        <div>
+          <span>购物车</span>
+          <span>
+            <van-icon name="delete" />
+            <span class="shopcar-Text">清空购物车</span>
+          </span>
+        </div>
+        <van-row class="optionbox" v-for="i in 5" :key="i">
+          <van-col span="12">
+            <span class="van-ellipsis">泡椒牛肉丝双拼+香菇鸡双拼+赠饮品啊</span>
+          </van-col>
+          <van-col span="6">
+            <span>60</span>
+          </van-col>
+          <van-col span="6">
+            <van-stepper v-model="value" theme="round" button-size="22" disable-input />
+          </van-col>
+        </van-row>
+      </div>
+    </van-action-sheet>
     <!-- 弹出层end -->
   </div>
 </template>
@@ -120,7 +141,7 @@ export default {
     },
     //弹出层
     showPopup() {
-      this.bottomShow = true;
+      this.bottomShow = !this.bottomShow;
     },
   },
 };
@@ -214,7 +235,30 @@ export default {
   }
 }
 // 新的
-
-
-
+#popup {
+  .content {
+    padding: 20px 20px 50px 20px;
+    div {
+      display: flex;
+      justify-content: space-between;
+      .van-icon {
+        vertical-align: middle;
+      }
+    }
+    .optionbox {
+      line-height: 32px;
+      margin-top: 10px;
+      span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    .shopcar-Text{
+      vertical-align: middle;
+      color: #c8c9cc;
+      font-size: 12px;
+    }
+  }
+}
 </style>
