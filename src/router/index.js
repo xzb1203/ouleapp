@@ -18,11 +18,12 @@ Vue.use(VueRouter)
     name: 'merchant',
     component: () => import('../views/main/Merchant'),
   },
-  {
-    path: '/shopdetail',
-    name: 'shopdetail',
-    component: () => import('../views/main/ShopDetail'),
-  },
+  // {
+  //   path: '/shopdetail',
+  //   name: 'shopdetail',
+  //   component: () => import('../views/main/ShopDetail'),
+  // },
+
 ]
 
 const router = new VueRouter({

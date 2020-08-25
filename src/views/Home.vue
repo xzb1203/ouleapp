@@ -62,23 +62,29 @@
     </header>
     <!-- 导航栏 -->
     <nav>
-      <router-link to="/">商品</router-link>
-      <router-link to="/evaluate">评价</router-link>
-      <router-link to="/merchant">商家</router-link>
-      <router-link to="/shopdetail">详情</router-link>
+      <van-tabs v-model="activeName">
+        <van-tab title="商品" name="a" to="/"></van-tab>
+        <van-tab title="评价" name="b" to="/evaluate"></van-tab>
+        <van-tab title="商家" name="c" to="/merchant"></van-tab>
+        <!-- <van-tab title="临时" name="d" to="/shopdetail"></van-tab> -->
+      </van-tabs>
     </nav>
     <!-- 主体 -->
     <main>
-      <router-view></router-view>
+      <transition name="slide-fade">
+        <router-view></router-view>
+      </transition>
     </main>
     <!-- 底部 -->
     <footer style="z-index:9999">
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
-        <van-goods-action-icon icon="cart-o" badge="5" text="购物车" @click="showPopup" />
+        <van-goods-action-icon icon="cart-o" :badge="getSlectedNum" text="购物车" @click="showPopup" />
+          <van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" />
         <van-goods-action-button type="danger" text="去结算" @click="onClickButton" />
       </van-goods-action>
     </footer>
+
     <!-- 弹出层star -->
     <van-action-sheet v-model="bottomShow" title="新用户下单立减5元" z-index="1;" id="popup">
       <div class="content" z-index="2;">
@@ -89,17 +95,18 @@
             <span class="shopcar-Text">清空购物车</span>
           </span>
         </div>
-        <van-row class="optionbox" v-for="i in 5" :key="i">
+        <van-row class="optionbox" v-for="items in getShopcarList_x" :key="items.id">
           <van-col span="12">
-            <span class="van-ellipsis">泡椒牛肉丝双拼+香菇鸡双拼+赠饮品啊</span>
+            <span class="van-ellipsis">{{items.name}}</span>
           </van-col>
           <van-col span="6">
-            <span>60</span>
+            <span style="color:red">{{'￥'+(items.price*items.num).toFixed(2)}}</span>
           </van-col>
           <van-col span="6">
-            <van-stepper v-model="value" theme="round" button-size="22" disable-input />
+            <van-stepper v-model="items.num" theme="round" button-size="22" disable-input min="0" />
           </van-col>
         </van-row>
+        <p class="total" style="color:red;font-size:20px">总计:{{'￥'+getSum.toFixed(2)}}</p>
       </div>
     </van-action-sheet>
     <!-- 弹出层end -->
@@ -116,9 +123,10 @@ export default {
       //店铺信息
       seller: {},
       num: 0,
-      value: 5,
+      value: 0,
       show: false,
       bottomShow: false,
+      activeName: "a",
     };
   },
   created() {
@@ -143,6 +151,26 @@ export default {
     showPopup() {
       this.bottomShow = !this.bottomShow;
     },
+  },
+  //计算属性
+  computed: {
+    getShopcarList_x() {
+      return this.$store.getters.getShopcarList;
+    },
+    getSum(){
+      let total = 0;
+      for(let items of this.getShopcarList_x){
+          total += items.num*items.price
+      }
+      return total
+    },
+    getSlectedNum(){
+      let num = 0;
+      for(let items of this.getShopcarList_x){
+        num+=items.num;
+      }
+      return num;
+    }
   },
 };
 </script>
@@ -195,6 +223,10 @@ export default {
         color: #f60;
       }
     }
+    .van-tabs {
+      width: 100%;
+      justify-content: space-around;
+    }
   }
   main {
     display: flex;
@@ -238,6 +270,10 @@ export default {
 #popup {
   .content {
     padding: 20px 20px 50px 20px;
+    .total{
+      font-weight: bold;
+      font-size: 16px;
+    }
     div {
       display: flex;
       justify-content: space-between;
@@ -254,11 +290,29 @@ export default {
         text-align: center;
       }
     }
-    .shopcar-Text{
+    .shopcar-Text {
       vertical-align: middle;
       color: #c8c9cc;
       font-size: 12px;
     }
+    .optionbox {
+      display: flex;
+      align-items: center;
+    }
   }
+}
+//切换动画
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0 ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(50px);
+  opacity: 0;
 }
 </style>
