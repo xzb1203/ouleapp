@@ -78,13 +78,12 @@
     <!-- 底部 -->
     <footer style="z-index:9999">
       <van-goods-action>
-        <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
-        <van-goods-action-icon icon="cart-o" :badge="getSlectedNum" text="购物车" @click="showPopup" />
+        <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon"/>
+        <van-goods-action-icon icon="cart-o" :color="getSlectedNum>0 ?'#FA452F' :'#646566'" :badge="getSlectedNum" text="购物车" @click="showPopup"/>
           <van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" />
-        <van-goods-action-button type="danger" text="去结算" @click="onClickButton" />
+        <van-goods-action-button type="danger" text="去结算" @click="onClickButton"/>
       </van-goods-action>
     </footer>
-
     <!-- 弹出层star -->
     <van-action-sheet v-model="bottomShow" title="新用户下单立减5元" z-index="1;" id="popup">
       <div class="content" z-index="2;">

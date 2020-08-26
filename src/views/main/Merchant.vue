@@ -24,9 +24,10 @@
       <!--右 收藏 -->
       <div class="collect">
         <!-- 图标 -->
-        <van-icon name="like" color="#ff0000" />
+        <van-icon name="like-o" v-show="!show"/>
+        <van-icon name="like" color="#F32228" v-show="show"/>
         <!-- 文字 -->
-        <span>已收藏</span>
+        <span @click="show=(!show)">已收藏</span>
       </div>
     </div>
     <!-- 商家服务 -->
@@ -66,6 +67,8 @@ export default {
     return {
       //店铺信息
       seller: {},
+      show:false
+
     };
   },
   //created
@@ -74,6 +77,7 @@ export default {
       this.seller = res.data.data;
     });
   },
+
 };
 </script>
 <style lang="less" scoped>
