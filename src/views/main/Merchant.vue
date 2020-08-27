@@ -22,12 +22,14 @@
         </p>
       </div>
       <!--右 收藏 -->
-      <div class="collect">
-        <!-- 图标 -->
-        <van-icon name="like-o" v-show="!show"/>
-        <van-icon name="like" color="#F32228" v-show="show"/>
-        <!-- 文字 -->
-        <span @click="show=(!show)">已收藏</span>
+      <div>
+        <span class="collect" @click="clickTitle">
+          <!-- 图标 -->
+          <van-icon name="like-o" v-show="!show" />
+          <van-icon name="like" color="#F32228" v-show="show" />
+          <!-- 文字 -->
+          <span @click="show=(!show)">{{show ?'已收藏' :'点击收藏'}}</span>
+        </span>
       </div>
     </div>
     <!-- 商家服务 -->
@@ -61,14 +63,16 @@
   </div>
 </template>
 <script>
+import {
+  Toast
+} from 'vant'
 import { seller } from "@/api/apis.js";
 export default {
   data() {
     return {
       //店铺信息
       seller: {},
-      show:false
-
+      show: false,
     };
   },
   //created
@@ -77,7 +81,14 @@ export default {
       this.seller = res.data.data;
     });
   },
-
+  methods: {
+    clickTitle() {
+      Toast({
+        message: this.show  ?'收藏成功' :'已取消收藏',
+        position: 'top',
+});
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

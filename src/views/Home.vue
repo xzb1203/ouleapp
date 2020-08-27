@@ -66,7 +66,6 @@
         <van-tab title="商品" name="a" to="/"></van-tab>
         <van-tab title="评价" name="b" to="/evaluate"></van-tab>
         <van-tab title="商家" name="c" to="/merchant"></van-tab>
-        <!-- <van-tab title="临时" name="d" to="/shopdetail"></van-tab> -->
       </van-tabs>
     </nav>
     <!-- 主体 -->
@@ -81,7 +80,10 @@
         <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon"/>
         <van-goods-action-icon icon="cart-o" :color="getSlectedNum>0 ?'#FA452F' :'#646566'" :badge="getSlectedNum" text="购物车" @click="showPopup"/>
           <van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" />
-        <van-goods-action-button type="danger" text="去结算" @click="onClickButton"/>
+        <van-goods-action-button type="danger" 
+        :text="getSlectedNum>0 ?'去下单￥'+getSum.toFixed(2) :'暂未挑选'" 
+        @click="onClickButton" 
+        :color="getSlectedNum>0 ?'#FA452F' :'#C1C1C1'"/>
       </van-goods-action>
     </footer>
     <!-- 弹出层star -->

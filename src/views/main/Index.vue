@@ -36,10 +36,12 @@
               <van-stepper
                 v-model="child.num"
                 theme="round"
+                :input-width="child.num>0 ?'15px' :'0px'"
                 button-size="22"
+                :show-minus="child.num ?true :false"
                 disable-input
                 min="0"
-                default-value="0"
+               
               />
             </template>
           </van-card>
@@ -185,6 +187,7 @@ export default {
     flex: 1;
     overflow: scroll;
     height: 90%;
+
     h5 {
       padding: 6px 0 0 5px;
       box-sizing: border-box;

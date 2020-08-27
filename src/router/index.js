@@ -6,7 +6,8 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Index',
-    component: Index,
+    component: () => import('../views/main/Index'),
+
   },
   {
     path: '/evaluate',

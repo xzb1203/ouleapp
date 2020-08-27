@@ -15,12 +15,12 @@
           <ul>
             <li>
               服务态度
-              <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" />
+              <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" readonly/>
               <span>4.5</span>
             </li>
             <li>
               菜品质量
-              <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" />
+              <van-rate v-model="value" allow-half void-icon="star" color="#FF9A02" :size="15" readonly/>
               <span>4.5</span>
             </li>
             <li class="rateTime">
