@@ -77,14 +77,7 @@
           <h5>商品介绍</h5>
           <p>{{shop_list.goodsDesc}}</p>
         </div>
-        <!-- 商品评价 -->
-        <!-- <div class="evaluate">
-          <van-tabs type="card">
-            <van-tab title="全部90">内容 1</van-tab>
-            <van-tab title="推荐50">内容 2</van-tab>
-            <van-tab title="吐槽40">内容 3</van-tab>
-          </van-tabs>
-        </div> -->
+
       </div>
     </van-popup>
   </div>
