@@ -153,7 +153,6 @@ export default {
       this.bottomShow = !this.bottomShow;
     },
   },
-  //计算属性
   computed: {
     getShopcarList_x() {
       return this.$store.getters.getShopcarList;
